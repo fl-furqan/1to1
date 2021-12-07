@@ -66,6 +66,8 @@ class RegisterController extends Controller
 
     public function subscribeOneToOne(Request $request)
     {
+
+        dd($request->all());
         $request->validate([
             'payment_method' => 'required|string',
             'student_number' => 'required|numeric',

@@ -35,6 +35,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'l
 
  Route::get('/test', function (\App\Services\GoogleSheet $googleSheet){
 
+     dd(config('checkoutpayment.' . config('CHECKOUT_TYPE') . '.CHECKOUT_PK'));
  });
 
 Auth::routes();

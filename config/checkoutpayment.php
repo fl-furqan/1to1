@@ -1,12 +1,8 @@
 <?php
 
 return [
-    'LIVE' => [
-        'CHECKOUT_SK'   => env('CHECKOUT_LIVE_SK'),
-        'CHECKOUT_PK'   => env('CHECKOUT_LIVE_PK'),
-    ],
-    'SANDBOX' => [
-        'CHECKOUT_SK' => env('CHECKOUT_SANDBOX_SK'),
-        'CHECKOUT_PK' => env('CHECKOUT_SANDBOX_PK'),
-    ]
+    'mode' => env('CHECKOUT_MODE', 'sandbox'),
+    'checkout_secret_key' => env('CHECKOUT_SK'),
+    'checkout_public_key' => env('CHECKOUT_PK'),
+    'checkout_link' => env('CHECKOUT_LINK'),
 ];

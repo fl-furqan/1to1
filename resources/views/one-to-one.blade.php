@@ -751,7 +751,7 @@ Students from other trajectories shall be able to .enroll in the second phase of
     var form = document.getElementById("payment-form");
     var errorStack = [];
 
-    Frames.init("{{ config('checkoutpayment.' . env('CHECKOUT_TYPE') . '.CHECKOUT_PK') }}");
+    Frames.init("{{ config('checkoutpayment.checkout_public_key') }}");
 
     Frames.addEventHandler(
         Frames.Events.CARD_VALIDATION_CHANGED,

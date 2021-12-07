@@ -23,15 +23,16 @@ use Illuminate\Support\Facades\Session;
 
 class Checkout
 {
-
-    private $sandbox = 'https://api.checkout.com/payments';
+    private $sandbox;
     private $secret;
     private $public;
 
     public function __construct()
     {
-        $this->secret = config('checkoutpayment.' . env('CHECKOUT_TYPE') . '.CHECKOUT_SK');
-        $this->public = config('checkoutpayment.' . env('CHECKOUT_TYPE') . '.CHECKOUT_PK');
+        $config = config('checkoutpayment');
+        $this->sandbox = $config['link'];
+        $this->secret = $config['checkout_secret_key'];
+        $this->public = $config['checkout_public_key'];
     }
 
     /**
