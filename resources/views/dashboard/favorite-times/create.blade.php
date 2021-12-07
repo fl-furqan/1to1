@@ -1,0 +1,42 @@
+@extends('dashboard.layouts.master')
+
+@section('content')
+
+    @include('dashboard.partials.errors')
+    @include('dashboard.partials.success')
+
+    <form class="form" method="POST" action="{{ route('dashboard.favorite-times.store') }}">
+        @csrf
+        @method('POST')
+
+        <div class="form-body">
+            <h4 class="form-section"><i class="ft-user"></i> اضافة وقت جديد</h4>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="title_ar">العنوان باللغة العربية</label>
+                        <input type="text" id="title_ar" class="form-control" placeholder="العنوان باللغة العربية" name="title_ar" value="{{ old('title_ar') }}" required>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="title_en">العنوان باللغة الانجليزية</label>
+                        <input type="text" id="title_en" class="form-control" placeholder="العنوان باللغة الانجليزية" name="title_en" value="{{ old('title_en') }}" required>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">
+                <i class="la la-check-square-o"></i> اضافة
+            </button>
+            <button type="reset" class="btn btn-warning mr-1">
+                <i class="ft-x"></i> إلغاء
+            </button>
+        </div>
+
+    </form>
+
+@endsection
