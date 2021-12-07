@@ -30,7 +30,7 @@ class Checkout
     public function __construct()
     {
         $config = config('checkoutpayment');
-        $this->sandbox = $config['link'];
+        $this->sandbox = $config['checkout_link'];
         $this->secret = $config['checkout_secret_key'];
         $this->public = $config['checkout_public_key'];
     }
@@ -49,7 +49,7 @@ class Checkout
                 'json' => [
                     "amount" => 29500,
                 ], 'headers' => [
-                'Authorization' => $this->public
+                'Authorization' => $this->secret
             ]
             ]);
         $data = \GuzzleHttp\json_decode($response->getBody()->getContents());
@@ -85,16 +85,15 @@ class Checkout
         $payment->success_url = 'https://furqanshop.com/eservices_checkout/';
         $payment->failure_url = 'https://furqanshop.com/eservices_checkout/';
 
-        $threeDs = new ThreeDs(true);
-        $threeDs->attempt_n3d = true;
-        $payment->threeDs = $threeDs;
+//        $threeDs = new ThreeDs(true);
+//        $threeDs->attempt_n3d = true;
+//        $payment->threeDs = $threeDs;
 
         $payment->risk = new Risk(false);
 //        $payment->setIdempotencyKey('123');
 
         try {
             $details = $checkout->payments()->request($payment);
-
             Session::put('payment_id', $details->id);
             Session::put('payment_status', $details->status);
             Session::put('reference_number', $reference_number);
