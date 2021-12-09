@@ -40,7 +40,7 @@ return [
     'The student ID is not in our records' => 'الرقم التسلسي للطالب غير موجود في سجلاتنا',
     'The registration process has been completed successfully' => 'تم إتمام عملية التسجيل بنجاح',
     'Required' => 'إلزامي *',
-    'Payment failed' => 'فشلت عملية الدفع يرجى تجربة كارت آخر او التواصل مع خدمة العملاء من خلال help@furqangroup.com',
+    'Payment failed!' => 'فشلت عملية الدفع يرجى تجربة كارت آخر او التواصل مع خدمة العملاء من خلال help@furqangroup.com',
     'Error' => 'خطأ',
     'Error 419' => 'يرجى التأكد من أنك لا تستخدم وضع التصفح المتخفي لضمان معالجة المعاملة بنجاح',
 

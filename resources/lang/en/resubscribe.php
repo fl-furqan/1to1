@@ -39,7 +39,7 @@ return [
     'The student ID is not in our records' => 'The student ID is not in our records',
     'The registration process has been completed successfully' => 'The registration process has been completed successfully',
     'Required' => 'Required *',
-    'Payment failed' => 'Payment failed, please try a different card or reach us support via help@furqangroup.com',
+    'Payment failed!' => 'Payment failed, please try a different card or reach us support via help@furqangroup.com',
     'Error' => 'Error',
     'Error 419' => 'Kindly make sure you are not using incognito mode to ensure processing the transaction successfully',
 ];
