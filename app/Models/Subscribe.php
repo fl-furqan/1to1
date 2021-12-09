@@ -45,7 +45,7 @@ class Subscribe extends Model
                     $subscribe->student->name ?? '-', $subscribe->country->name, $subscribe->email,
                     $image_path ?? '-', $subscribe->bank_name ?? '-', $subscribe->account_owner ?? '-',
                     $subscribe->transfer_date ?? '-', $subscribe->bank_reference_number ?? '-', $subscribe->payment_method ?? '-',
-                    $subscribe->payment_id ?? '-', $subscribe->payment_status ?? '-',
+                    $subscribe->payment_id ?? '-', $subscribe->payment_status ?? '-', $subscribe->response_code
                 ],
             ];
 
@@ -71,7 +71,7 @@ class Subscribe extends Model
                         $subscribe->student->name ?? '-', $subscribe->country->name, $subscribe->email,
                         $image_path, $subscribe->bank_name ?? '-', $subscribe->account_owner ?? '-',
                         $subscribe->transfer_date ?? '-', $subscribe->bank_reference_number ?? '-', $subscribe->payment_method ?? '-',
-                        $subscribe->payment_id ?? '-', $subscribe->payment_status ?? '-',
+                        $subscribe->payment_id ?? '-', $subscribe->payment_status ?? '-', $subscribe->response_code
                     ],
                 ];
 

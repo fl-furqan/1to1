@@ -22,7 +22,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'l
 
     // one to one
     Route::get('/', [SemesterRegistrationController::class, 'indexOneToOne'])->name('semester.indexOneToOne');
-    Route::post('/', [RegisterController::class, 'subscribeOneToOne'])->name('semester.subscribeOneToOne');
+    Route::post('/subscribeOneToOne', [RegisterController::class, 'subscribeOneToOne'])->name('semester.subscribeOneToOne');
 
     // get student info
     Route::get('/semester-registration/get-student-info', [SemesterRegistrationController::class, 'getStudentInfo'])->name('semester.registration.getStudentInfo');
