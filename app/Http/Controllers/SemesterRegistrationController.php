@@ -17,16 +17,28 @@ use function GuzzleHttp\json_decode;
 class SemesterRegistrationController extends Controller
 {
 
+    private $payment_link;
+    private $secret;
+    private $public;
+
+    public function __construct()
+    {
+        $config = config('checkoutpayment');
+        $this->payment_link = $config['checkout_link'];
+        $this->secret = $config['checkout_sk'];
+        $this->public = $config['checkout_pk'];
+    }
+
     public function indexOneToOne()
     {
         if(request()->query('cko-session-id')){
-            $client = new Client(['base_uri' => 'https://api.sandbox.checkout.com']);
+            $client = new Client(['base_uri' => $this->payment_link]);
 
             try {
                 $response = $client->request('GET', '/payments/' . request()->query('cko-session-id'),
                     [
                         'headers' => [
-                            'Authorization' => 'sk_test_7c21900d-0f6b-4395-af84-9508b39fd5c7'
+                            'Authorization' => config('checkoutpayment.checkout_sk')
                         ]
                     ]);
 
@@ -39,7 +51,8 @@ class SemesterRegistrationController extends Controller
                         ->first();
 
                     $result = $subscribe->update([
-                        'payment_status' => $data->status
+                        'payment_status' => $data->status,
+                        'response_code'  => $data->actions['response_code'],
                     ]);
 
                     if ($data->approved){

@@ -119,6 +119,7 @@ class RegisterController extends Controller
                 'reference_number' => Session::get('reference_number'),
                 'payment_status' => Session::get('payment_status'),
                 'form_type' => 'one-to-one',
+                'response_code' => $result->response_code,
             ]);
 
             Session::forget('payment_id');

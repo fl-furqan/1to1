@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFavoriteTimesTable extends Migration
+class AddResponseCodeColumnToSubscribesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,8 @@ class CreateFavoriteTimesTable extends Migration
      */
     public function up()
     {
-        Schema::create('favorite_times', function (Blueprint $table) {
-            $table->id();
-            $table->text('title');
-            $table->timestamps();
+        Schema::table('subscribes', function (Blueprint $table) {
+            $table->string('response_code')->nullable()->after('form_type');
         });
     }
 
@@ -27,6 +25,8 @@ class CreateFavoriteTimesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('favorite_times');
+        Schema::table('subscribes', function (Blueprint $table) {
+            //
+        });
     }
 }

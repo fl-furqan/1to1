@@ -78,9 +78,11 @@ class FavoriteTimeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Admin $admin)
+    public function edit(Request $request, $id)
     {
-        return view('admins.admins.edit', compact('admin'));
+        $favorite_time = FavoriteTime::findOrFail($id);
+
+        return view('dashboard.favorite-times.edit', ['favorite_time' => $favorite_time]);
     }
 
     /**
@@ -90,39 +92,31 @@ class FavoriteTimeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Admin $admin)
+    public function update(Request $request, $id)
     {
+        $favorite_time = FavoriteTime::findOrFail($id);
+
         $rule = [
-            'name'     => 'required|string',
-            'email'    => 'required|email|unique:admins,email,' . $admin->id,
-            'password' => 'sometimes|nullable|min:6',
+            'title_ar' => 'required|string',
+            'title_en' => 'required|string',
         ];
 
         $messages = [
-            'name.required'  => 'يجب التأكد من إدخال الأسم بالكامل',
-            'name.string'    => 'يجب التأكد من إدخال الأسم بالكامل بشكل صحيح',
-            'email.required' => 'يجب التأكد من إدخال البريد الإلكتروني',
-            'email.email'    => 'يجب التأكد من إدخال البريد الإلكتروني',
-            'email.unique'   => 'البريد الإلكتروني المدخل مستخدم مسبقا',
-            'password.required' => 'يجب التأكد من إدخال كلمة المرور',
-            'password.min'      => 'يجب أن تكون كلمة المرور 6 حروف على الأقل ',
+            'title_ar.required' => 'عنوان التوقيت باللغة العربية مطلوب',
+            'title_ar.string' => 'يجب التأكد من إدخال عنوان التوقيت باللغة العربية بشكل صحيح',
+            'title_en.required' => 'عنوان التوقيت باللغة الانجليزية مطلوب',
+            'title_en.string' => 'يجب التأكد من إدخال عنوان التوقيت باللغة الانجليزية بشكل صحيح',
         ];
 
-        $adminData = $this->validate($request, $rule, $messages);
+        $this->validate($request, $rule, $messages);
 
-        if ($request->password){
-            $adminData['password'] = bcrypt($request->password);
-            $admin->update($adminData);
-        }else{
-            $admin->update([
-                'name'  => $adminData['name'],
-                'email' => $adminData['email'],
-            ]);
-        }
+        $favorite_time->update([
+            'title' => ['ar' => $request->title_ar, 'en' => $request->title_en],
+        ]);
 
         session()->flash('success', 'تم تحديث البيانات بنجاح');
 
-        return redirect(route('admins.admins.edit', $admin->id));
+        return redirect(route('dashboard.favorite-times.edit', $favorite_time->id));
     }
 
     /**
@@ -132,31 +126,9 @@ class FavoriteTimeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id) {
-        Admin::find($id)->delete();
+        FavoriteTime::find($id)->delete();
         session()->flash('success', trans('تم الحذف بنجاح'));
-        return redirect(route('admins.admins.index'));
+        return redirect(route('favorite-times.index'));
     }
 
-    public function deleteAll() {
-        if (is_array(request('item'))) {
-            Admin::destroy(request('item'));
-        } else {
-            Admin::find(request('item'))->delete();
-        }
-        session()->flash('success', 'تم الحذف بنجاح');
-        return redirect(route('admins.admins.index'));
-    }
-
-    public function disableTeachersLogin(Request $request)
-    {
-        DB::beginTransaction();
-        try {
-            Teacher::query()->update(['status' => $request->status]);
-            DB::commit();
-        }catch (Throwable $e){
-            DB::rollBack();
-            return response()->json(['status' => 'Expectation Failed'], 417);
-        }
-        return response()->json(['status' => 'success'], 200);
-    }
 }

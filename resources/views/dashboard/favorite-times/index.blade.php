@@ -44,10 +44,16 @@
                                                 </a>
                                             </td>
                                             <td>
-                                                <a href="#" class="btn btn-danger">
-                                                    حذف
-                                                    <i class="ft ft-delete"></i>
-                                                </a>
+                                                <form action="{{ route('dashboard.favorite-times.destroy', $favorite_time->id) }}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+
+                                                    <button type="submit" class="btn btn-danger">
+                                                        <i class="la la-trash"></i>
+                                                        حذف
+                                                    </button>
+
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach

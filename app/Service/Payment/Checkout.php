@@ -23,16 +23,16 @@ use Illuminate\Support\Facades\Session;
 
 class Checkout
 {
-    private $sandbox;
+    private $payment_link;
     private $secret;
     private $public;
 
     public function __construct()
     {
         $config = config('checkoutpayment');
-        $this->sandbox = $config['checkout_link'];
-        $this->secret = $config['checkout_secret_key'];
-        $this->public = $config['checkout_public_key'];
+        $this->payment_link = $config['checkout_link'];
+        $this->secret = $config['checkout_sk'];
+        $this->public = $config['checkout_pk'];
     }
 
     /**
@@ -42,7 +42,7 @@ class Checkout
      */
     public function checkout()
     {
-        $client = new Client(['base_uri' => $this->sandbox]);
+        $client = new Client(['base_uri' => $this->payment_link]);
 
         $response = $client->request('POST', '/payment-links',
             [
@@ -59,12 +59,17 @@ class Checkout
     public function payment(string $token = null, $customer = null)
     {
         $now = Carbon::now();
-        // SELECT max(number) from subscriptions where year(created_at) = ?
 
+        // SELECT max(number) from subscriptions where year(created_at) = ?
         $reference_number = Subscribe::whereYear('created_at', '=', $now->year)->max('reference_number');
         $reference_number = $reference_number ? intval($reference_number) + 1 : $now->year . '0001';
 
-        $checkout = new CheckoutApi($this->secret, false);
+        if (config('checkoutpayment.mode') == 'sandbox'){
+            $checkout = new CheckoutApi($this->secret);
+        }else{
+            $checkout = new CheckoutApi($this->secret, false);
+        }
+
         $method = new TokenSource($token);
 
         $payment = new Payment($method, 'USD');
