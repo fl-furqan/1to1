@@ -29,12 +29,12 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'l
 
     // import files to database
 //    Route::get('/importCountries', [ImportController::class, 'importCountries']);
-//    Route:get('/importStudents', [ImportController::class, 'importStudents']);
+//    Route::get('/importStudents', [ImportController::class, 'importStudents']);
 
 });
 
  Route::get('/test', function (\App\Services\GoogleSheet $googleSheet){
-
+//    dd($googleSheet->readGoogleSheet()[1][0]);
  });
 
 Auth::routes();

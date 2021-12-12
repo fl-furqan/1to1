@@ -41,6 +41,7 @@ class FavoriteTimeController extends Controller
         $rule = [
             'title_ar' => 'required|string',
             'title_en' => 'required|string',
+            'section' => 'required|string',
         ];
 
         $messages = [
@@ -48,12 +49,14 @@ class FavoriteTimeController extends Controller
             'title_ar.string' => 'يجب التأكد من إدخال عنوان التوقيت باللغة العربية بشكل صحيح',
             'title_en.required' => 'عنوان التوقيت باللغة الانجليزية مطلوب',
             'title_en.string' => 'يجب التأكد من إدخال عنوان التوقيت باللغة الانجليزية بشكل صحيح',
+            'section.string' => 'يجب التأكد من إدخال القسم بشكل صحيح',
         ];
 
         $favorite_time = $this->validate($request, $rule, $messages);
 
         FavoriteTime::create([
             'title' => ['ar' => $request->title_ar, 'en' => $request->title_en],
+            'section' => $request->section,
         ]);
 
         session()->flash('success', 'تمت الاضافة بنجاح');
@@ -99,6 +102,7 @@ class FavoriteTimeController extends Controller
         $rule = [
             'title_ar' => 'required|string',
             'title_en' => 'required|string',
+            'section' => 'required|string',
         ];
 
         $messages = [
@@ -106,12 +110,14 @@ class FavoriteTimeController extends Controller
             'title_ar.string' => 'يجب التأكد من إدخال عنوان التوقيت باللغة العربية بشكل صحيح',
             'title_en.required' => 'عنوان التوقيت باللغة الانجليزية مطلوب',
             'title_en.string' => 'يجب التأكد من إدخال عنوان التوقيت باللغة الانجليزية بشكل صحيح',
+            'section.string' => 'يجب التأكد من إدخال القسم بشكل صحيح',
         ];
 
         $this->validate($request, $rule, $messages);
 
         $favorite_time->update([
             'title' => ['ar' => $request->title_ar, 'en' => $request->title_en],
+            'section' => $request->section,
         ]);
 
         session()->flash('success', 'تم تحديث البيانات بنجاح');

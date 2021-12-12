@@ -24,6 +24,20 @@
                     </li>
                 </ul>
             </li>
+            <li class="nav-item">
+                <a href="{{ route('dashboard.favorite-times.create') }}">
+                    <i class="ft ft-edit"></i>
+                    <span class="menu-title" data-i18n="nav.templates.main">اضافة وقت جديد</span>
+                </a>
+                <ul class="menu-content">
+                    <li>
+                        <a class="menu-item" href="{{ route('dashboard.favorite-times.create') }}" data-i18n="nav.templates.vert.classic_menu">
+                            <i class="ft ft-clock"></i>
+                            عرض جميع الأوقات
+                        </a>
+                    </li>
+                </ul>
+            </li>
 
         </ul>
 

@@ -25,6 +25,16 @@
                     </div>
                 </div>
 
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="title_en">القسم</label>
+                        <select name="section" id="" class="form-control select2">
+                            <option value="male" {{ $favorite_time->section == 'male' ? 'selected' : '' }}>بنين</option>
+                            <option value="female" {{ $favorite_time->section == 'female' ? 'selected' : '' }}>بنات</option>
+                        </select>
+                    </div>
+                </div>
+
             </div>
         </div>
 

@@ -37,6 +37,7 @@
                                         <tr>
                                             <th scope="row">{{ $favorite_time->id }}</th>
                                             <td>{{ $favorite_time->title }}</td>
+                                            <td>{{ $favorite_time->section == 'male' ? 'بنين' : 'بنات' }}</td>
                                             <td>
                                                 <a href="{{ route('dashboard.favorite-times.edit', $favorite_time->id) }}" class="btn btn-warning">
                                                     تعديل

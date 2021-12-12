@@ -118,7 +118,7 @@ class RegisterController extends Controller
                 'payment_id' => Session::get('payment_id'),
                 'reference_number' => Session::get('reference_number'),
                 'payment_status' => Session::get('payment_status'),
-                'form_type' => 'one-to-one',
+                'form_type' => 'regular',
                 'response_code' => $result->response_code,
             ]);
 
@@ -149,7 +149,7 @@ class RegisterController extends Controller
                 'account_owner' => $request->account_owner,
                 'transfer_date' => $request->transfer_date,
                 'bank_reference_number' => $request->bank_reference_number,
-                'form_type' => 'one-to-one',
+                'form_type' => 'regular',
             ]);
         }
 

@@ -24,6 +24,15 @@
                         <input type="text" id="title_en" class="form-control" placeholder="التوقيت باللغة الانجليزية" name="title_en" value="{{ old('title_en') }}" required>
                     </div>
                 </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="title_en">القسم</label>
+                        <select name="section" id="" class="form-control select2">
+                            <option value="male">بنين</option>
+                            <option value="female">بنات</option>
+                        </select>
+                    </div>
+                </div>
 
             </div>
         </div>
