@@ -31,6 +31,8 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'l
 //    Route::get('/importCountries', [ImportController::class, 'importCountries']);
 //    Route::get('/importStudents', [ImportController::class, 'importStudents']);
 
+    Route::get('/check-coupon', [\App\Http\Controllers\CouponController::class, 'test'])->name('test');
+
 });
 
  Route::get('/test', function (\App\Services\GoogleSheet $googleSheet){

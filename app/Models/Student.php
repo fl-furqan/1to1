@@ -15,4 +15,10 @@ class Student extends Model
     {
         return $this->hasMany(Subscribe::class, 'student_id');
     }
+
+    public function coupons()
+    {
+        return $this->belongsToMany(Coupon::class, 'coupon_student');
+    }
+
 }
