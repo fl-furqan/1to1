@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use \Illuminate\Support\Facades\Session;
 
 class Coupon extends Model
 {
@@ -17,13 +18,14 @@ class Coupon extends Model
     protected $appends = ['is_valid'];
 
     public function getIsValidAttribute(){
-        $student_id = Cookie::get('student_id');
+        $student_id = Session::get('student_id');
 
         return $student_id &&
             $this->active &&
             $this->validDates() &&
             $this->validUsageLimit() &&
-            $this->validLimitUser($student_id);
+            $this->validLimitUser($student_id) &&
+            $this->validUserAccess($student_id);
     }
 
     private function validDates()
@@ -44,20 +46,31 @@ class Coupon extends Model
             return true;
         }
 
-        $couponUsed = DB::table('coupon_student')->where('coupon_id', $this->id)->where('student_id', $student_id)->first();
-        return ! $couponUsed;
+        $coupon_used = DB::table('usage_coupons')->where('coupon_id', $this->id)->where('student_id', $student_id)->first();
+        return ! $coupon_used;
     }
 
-    public function use($student_id = null)
+    public function validUserAccess($student_id)
+    {
+
+        if (! $this->specific_users) {
+            return true;
+        }
+
+        $has_access = DB::table('coupon_student')->where('coupon_id', $this->id)->where('student_id', $student_id)->first();
+        return $has_access;
+    }
+
+    public function use($student_id)
     {
         $this->times_used += 1;
         $this->save();
 
-        if ($this->limit_user) {
-            DB::table('coupon_student')->insert(
-                ['user_id' => $student_id, 'coupon_id' => $this->id]
-            );
-        }
+        DB::table('usage_coupons')->insert(
+            ['student_id' => $student_id, 'coupon_id' => $this->id]
+        );
+
+
     }
 
     public function getDiscount($subtotal)
@@ -73,6 +86,11 @@ class Coupon extends Model
     public function students()
     {
         return $this->belongsToMany(Student::class, 'coupon_student');
+    }
+
+    public function course()
+    {
+        return $this->belongsTo(Course::class, 'course_id');
     }
 
 }

@@ -80,8 +80,19 @@
 
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="limit_user">مرة واحدة لكل طالب</label>
+                        <label for="limit_user">صالح لمرة واحدة فقط لكل طالب</label>
                         <input type="checkbox" name="limit_user" id="limit_user" data-color="danger" class="toggle-status switchery" />
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="course_id">الدورة</label>
+                        <select name="course_id" id="course_id" class="form-control select2" required>
+                            @foreach($courses as $course)
+                                <option value="{{ $course->id }}">{{ $course->name }}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
 

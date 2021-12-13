@@ -624,6 +624,7 @@ Students from other trajectories shall be able to .enroll in the second phase of
                                         </label>
                                         <img class="text-center d-block" style="width: 38%;margin: auto;margin-top: 9px;" src="{{ asset('card-icons/cards.png') }}" alt="Cards icons">
                                     </div>
+
                                     <br>
 
                                     <div class="form-check text-right">
@@ -709,9 +710,21 @@ Students from other trajectories shall be able to .enroll in the second phase of
 
                         </fieldset>
 
+                        <input type="hidden" name="hidden_apply_coupon" id="hidden_apply_coupon">
                     </form>
 
                     <form id="payment-form" method="POST" action="https://merchant.com/charge-card" class="d-none">
+
+                        <div class="form-group text-right" id="apply-coupon" style="width: 50%; margin: auto;">
+                            <label for="apply_coupon" class="text-right">{{ __('resubscribe.Enter coupon') }}</label>
+                            <input type="text" aria-describedby="coupon-description" name="apply_coupon" class="form-control" id="apply_coupon" placeholder="{{ __('resubscribe.Enter coupon') }}" title="{{ __('resubscribe.Enter coupon') }}">
+                            <small id="coupon-description" class="form-text text-muted"></small>
+
+                            <div class="form-group text-center">
+                                <button type="button" class="btn btn-primary" id="apply_coupon_btn" style="width: 70% !important;">{{ __('resubscribe.Apply') }}</button>
+                            </div>
+                        </div>
+
                         <div class="one-liner" style="flex-direction: column;justify-content: space-between;align-items: center;height: 100px;">
                             <div class="card-frame"></div>
                             <button class="btn btn-primary" id="pay-button" disabled>
@@ -777,6 +790,9 @@ Students from other trajectories shall be able to .enroll in the second phase of
         setProgressBar(current);
 
         $(".next").click(function(){
+
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
 
             current_fs = $(this).parent();
 
@@ -853,6 +869,21 @@ Students from other trajectories shall be able to .enroll in the second phase of
             return false;
         })
 
+        $(document).on('click', 'form #apply_coupon_btn', function (e) {
+            $('#hidden_apply_coupon').val($('form #apply_coupon').val());
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url: '{{ route('apply.coupon') }}?std_number=' + $('form #std-number').val() + '&code=' + $('form #apply_coupon').val(),
+                success: function (data) {
+                    $('#coupon-description').html("{{ __('resubscribe.discount total is') }}" + data.discount + "$ " + "{{ __('resubscribe.and price after discount is') }}" + data.price_after_discount + "$ ");
+                },
+                error: function (data){
+                    $('#coupon-description').html(data.responseJSON.msg);
+                }
+            });
+        });
+
         $(document).on('click', 'form #std-number-search', function (e) {
             $.ajax({
                 type: "GET",
@@ -879,6 +910,7 @@ Students from other trajectories shall be able to .enroll in the second phase of
                 $("#hsbc-section-elements input").prop('required',true);
 
                 $("#payment-form").addClass('d-none');
+
                 $("#submit-main-form").removeAttr('disabled');
                 $("#submit-main-form").removeClass('btn-secondary');
                 $("#submit-main-form").addClass('btn-primary');
@@ -898,6 +930,7 @@ Students from other trajectories shall be able to .enroll in the second phase of
 
                 $("#payment-form").removeClass('d-none');
                 $("#submit-main-form").addClass('d-none');
+
             }else{
                 e.preventDefault();
                 alert('يجب عليك الموافقة على صحة البيانات السابقة')

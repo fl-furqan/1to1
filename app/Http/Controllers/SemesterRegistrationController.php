@@ -10,7 +10,6 @@ use App\Service\Payment\Checkout;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use function GuzzleHttp\json_decode;
@@ -94,7 +93,6 @@ class SemesterRegistrationController extends Controller
         }
 
         if ($student){
-            Cookie::make('student_id', $student->id);
             return response()->json(['name' => $student->name], 200, [], JSON_UNESCAPED_UNICODE);
         }
 

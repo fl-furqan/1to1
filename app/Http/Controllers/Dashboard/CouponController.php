@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Models\Coupon;
 use App\Models\CouponStudent;
+use App\Models\Course;
 use App\Models\Student;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -31,8 +32,9 @@ class CouponController extends Controller
     public function create()
     {
         $students = Student::query()->get();
+        $courses = Course::query()->get();
 
-        return view("dashboard.coupons.create", ['users' => $students]);
+        return view("dashboard.coupons.create", ['users' => $students, 'courses' => $courses]);
     }
 
     /**
@@ -53,6 +55,7 @@ class CouponController extends Controller
             'active' => 'required|numeric',
             'limit_user' => 'sometimes|accepted',
             'users' => 'sometimes|array',
+            'course_id' => 'required|exists:courses,id',
         ];
 
         $messages = [
@@ -85,6 +88,7 @@ class CouponController extends Controller
             'active' => $request->active,
             'limit_user' => $request->limit_user == 'on' ? 1 : 0,
             'specific_users' => count($request->specific_users) > 0 ? 1 : 0,
+            'course_id' => $request->course_id,
         ]);
 
         if ($request->specific_users){
@@ -147,6 +151,7 @@ class CouponController extends Controller
             'active' => 'required|numeric',
             'limit_user' => 'sometimes|accepted',
             'users' => 'sometimes|array',
+            'course_id' => 'required|exists:courses,id',
         ];
 
         $messages = [
@@ -179,6 +184,7 @@ class CouponController extends Controller
             'active' => $request->active,
             'limit_user' => $request->limit_user == 'on' ? 1 : 0,
             'specific_users' => count($request->specific_users) > 0 ? 1 : 0,
+            'course_id' => $request->course_id,
         ]);
 
         CouponStudent::where('coupon_id', $coupon->id)->delete();

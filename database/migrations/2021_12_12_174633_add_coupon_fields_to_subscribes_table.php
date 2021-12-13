@@ -16,7 +16,7 @@ class AddCouponFieldsToSubscribesTable extends Migration
         Schema::table('subscribes', function (Blueprint $table) {
             $table->integer('coupon_id')->nullable()->default(null)->after('response_code');
             $table->float('discount_value')->nullable()->default(0)->after('coupon_id');
-            $table->integer('coupon_code')->nullable()->default(null)->after('discount_value');
+            $table->string('coupon_code')->nullable()->default(null)->after('discount_value');
         });
     }
 

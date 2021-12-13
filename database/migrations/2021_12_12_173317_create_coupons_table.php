@@ -25,6 +25,7 @@ class CreateCouponsTable extends Migration
             $table->boolean('limit_user')->nullable();
             $table->boolean('specific_users')->nullable();
             $table->integer('times_used')->default(0);
+            $table->integer('course_id');
             $table->timestamps();
         });
     }

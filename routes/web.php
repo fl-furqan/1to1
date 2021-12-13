@@ -3,6 +3,7 @@
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SemesterRegistrationController;
 use App\Http\Controllers\ImportController;
+use App\Http\Controllers\CouponController;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Route;
 
@@ -31,7 +32,8 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'l
 //    Route::get('/importCountries', [ImportController::class, 'importCountries']);
 //    Route::get('/importStudents', [ImportController::class, 'importStudents']);
 
-    Route::get('/check-coupon', [\App\Http\Controllers\CouponController::class, 'test'])->name('test');
+    // apply coupon
+    Route::get('/apply-coupon', [CouponController::class, 'applyCoupon'])->name('apply.coupon');
 
 });
 

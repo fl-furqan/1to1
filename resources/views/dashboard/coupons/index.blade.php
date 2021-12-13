@@ -32,6 +32,7 @@
                                         <th>كود الكوبون</th>
                                         <th>النوع</th>
                                         <th>القيمة</th>
+                                        <th>الدورة</th>
                                         <th>تعديل</th>
                                         <th>حذف</th>
                                     </tr>
@@ -43,6 +44,7 @@
                                             <td>{{ $coupon->code }}</td>
                                             <td>{{ $coupon->type }}</td>
                                             <td>{{ ($coupon->type == 'fixed') ? $coupon->value . ' $' : $coupon->value}}</td>
+                                            <td>{{ $coupon->course->name }}</td>
                                             <td>
                                                 <a href="{{ route('dashboard.coupons.edit', $coupon->id) }}" class="btn btn-warning">
                                                     تعديل
