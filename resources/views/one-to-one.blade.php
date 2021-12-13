@@ -395,7 +395,7 @@
                                     <br>
 
                                         <span style="display: block; color: #ea3223; font-weight: bold; text-align: center !important;">
-                                            هام! في حال الرغبة في التسجيل في مسار التعليم الفردي يرجى تعبئة الاستمارة التالية، وستكون بداية الفصل الدراسي الأول للطلاب والطالبات من تاريخ 29/08/2021م الموافق 21/01/1443هـ إلى 31/12/2021م الموافق 26/05/1443هـ.
+                                            هام! في حال الرغبة في التسجيل في مسار التعليم الفردي يرجى تعبئة الاستمارة التالية، وستكون بداية الفصل الدراسي الأول للطلاب والطالبات من تاريخ 02/01/2022م الموافق 29/05/1443هـ إلى 28/04/2022م الموافق 27/09/1443هـ.
                                         </span>
 
                                         <br>
@@ -467,7 +467,7 @@ Students from other trajectories shall be able to .enroll in the second phase of
 
                                     <br>
                                         <span class="d-block" style="color: #bb271a; font-weight: bold; text-align: center;">
-                                            Important! If you would like to register for the one-to-one class system, please fill out the following form. The First semester is to begin .from 29.08.2021 until 30.12.2021.
+                                            Important! If you would like to register for the one-to-one class system, please fill out the following form. The First semester is to begin .from 02.01.2022 until 29.04.2022.
                                         </span>
 
                                         <br>
@@ -562,19 +562,32 @@ Students from other trajectories shall be able to .enroll in the second phase of
                                     <label for="std-email">{{ __('resubscribe.Email') }}</label>
                                     <input type="email" class="form-control" name="email" id="std-email" placeholder="{{ __('resubscribe.Email') }}" required>
                                 </div>
-                                <div class="form-group text-right">
+                                <div class="form-group text-right" id="confirm-email">
                                     <label for="std-email-conf">{{ __('resubscribe.Confirm Email') }}</label>
                                     <input type="email" class="form-control" id="std-email-conf" placeholder="{{ __('resubscribe.Confirm Email') }}" required>
                                 </div>
 
-                                @foreach($favorite_times as $key => $favorite_time)
-                                    <div class="form-group text-right">
-                                        <input class="form-check-input input-time" type="radio" name="favorite_time" id="{{ $favorite_time->title . $key }}" value="{{ $favorite_time->title }}" required>
-                                        <label class="form-check-label label-time" for="{{ $favorite_time->title . $key }}">
-                                            {{ $favorite_time->title }}
-                                        </label>
-                                    </div>
-                                @endforeach
+                                <div id="favorite_times_male" class="d-none">
+                                    @foreach($favorite_times_male as $key => $favorite_time)
+                                        <div class="form-group text-right">
+                                            <input class="form-check-input input-time" type="radio" name="favorite_time" id="{{ $favorite_time->title . $key }}" value="{{ $favorite_time->title }}" required>
+                                            <label class="form-check-label label-time" for="{{ $favorite_time->title . $key }}">
+                                                {{ $favorite_time->title }}
+                                            </label>
+                                        </div>
+                                    @endforeach
+                                </div>
+
+                                <div id="favorite_times_female" class="d-none">
+                                    @foreach($favorite_times_female as $key => $favorite_time)
+                                        <div class="form-group text-right">
+                                            <input class="form-check-input input-time" type="radio" name="favorite_time" id="{{ $favorite_time->title . $key }}" value="{{ $favorite_time->title }}" required>
+                                            <label class="form-check-label label-time" for="{{ $favorite_time->title . $key }}">
+                                                {{ $favorite_time->title }}
+                                            </label>
+                                        </div>
+                                    @endforeach
+                                </div>
 
                             </div>
                             <input type="button" name="next" class="next action-button" value="{{ __('resubscribe.Next') }}" />
@@ -611,6 +624,7 @@ Students from other trajectories shall be able to .enroll in the second phase of
                                         </label>
                                         <img class="text-center d-block" style="width: 38%;margin: auto;margin-top: 9px;" src="{{ asset('card-icons/cards.png') }}" alt="Cards icons">
                                     </div>
+
                                     <br>
 
                                     <div class="form-check text-right">
@@ -696,9 +710,21 @@ Students from other trajectories shall be able to .enroll in the second phase of
 
                         </fieldset>
 
+                        <input type="hidden" name="hidden_apply_coupon" id="hidden_apply_coupon">
                     </form>
 
                     <form id="payment-form" method="POST" action="https://merchant.com/charge-card" class="d-none">
+
+                        <div class="form-group text-right" id="apply-coupon" style="width: 50%; margin: auto;">
+                            <label for="apply_coupon" class="text-right">{{ __('resubscribe.Enter coupon') }}</label>
+                            <input type="text" aria-describedby="coupon-description" name="apply_coupon" class="form-control" id="apply_coupon" placeholder="{{ __('resubscribe.Enter coupon') }}" title="{{ __('resubscribe.Enter coupon') }}">
+                            <small id="coupon-description" class="form-text text-muted"></small>
+
+                            <div class="form-group text-center">
+                                <button type="button" class="btn btn-primary" id="apply_coupon_btn" style="width: 70% !important;">{{ __('resubscribe.Apply') }}</button>
+                            </div>
+                        </div>
+
                         <div class="one-liner" style="flex-direction: column;justify-content: space-between;align-items: center;height: 100px;">
                             <div class="card-frame"></div>
                             <button class="btn btn-primary" id="pay-button" disabled>
@@ -765,9 +791,12 @@ Students from other trajectories shall be able to .enroll in the second phase of
 
         $(".next").click(function(){
 
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+
             current_fs = $(this).parent();
 
-            if (validate(current_fs.find("input[required]"))){
+            if(validate(current_fs)){
                 next_fs = $(this).parent().next();
 
                 //Add Class Active
@@ -840,6 +869,21 @@ Students from other trajectories shall be able to .enroll in the second phase of
             return false;
         })
 
+        $(document).on('click', 'form #apply_coupon_btn', function (e) {
+            $('#hidden_apply_coupon').val($('form #apply_coupon').val());
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url: '{{ route('apply.coupon') }}?std_number=' + $('form #std-number').val() + '&code=' + $('form #apply_coupon').val(),
+                success: function (data) {
+                    $('#coupon-description').html("{{ __('resubscribe.discount total is') }}" + data.discount + "$ " + "{{ __('resubscribe.and price after discount is') }}" + data.price_after_discount + "$ ");
+                },
+                error: function (data){
+                    $('#coupon-description').html(data.responseJSON.msg);
+                }
+            });
+        });
+
         $(document).on('click', 'form #std-number-search', function (e) {
             $.ajax({
                 type: "GET",
@@ -866,6 +910,7 @@ Students from other trajectories shall be able to .enroll in the second phase of
                 $("#hsbc-section-elements input").prop('required',true);
 
                 $("#payment-form").addClass('d-none');
+
                 $("#submit-main-form").removeAttr('disabled');
                 $("#submit-main-form").removeClass('btn-secondary');
                 $("#submit-main-form").addClass('btn-primary');
@@ -885,6 +930,7 @@ Students from other trajectories shall be able to .enroll in the second phase of
 
                 $("#payment-form").removeClass('d-none');
                 $("#submit-main-form").addClass('d-none');
+
             }else{
                 e.preventDefault();
                 alert('يجب عليك الموافقة على صحة البيانات السابقة')
@@ -892,8 +938,32 @@ Students from other trajectories shall be able to .enroll in the second phase of
 
         });
 
-        function validate(inputs) {
+        function validate(current_fs) {
+            let inputs = current_fs.find("input[required]");
+            let radioBoxes = current_fs.find('input[type=radio]');
+
             flag = true;
+
+            for (index = 0; index < radioBoxes.length; ++index) {
+                if (!radioBoxes[index].checked){
+                    $(radioBoxes[index]).css('border-color', 'red');
+                    flag = false;
+                }else{
+                    $(radioBoxes[index]).css('border-color', 'green');
+                    flag = true;
+                    break;
+                }
+
+            }
+
+            if(!flag){
+                $('.error-msg-times').remove();
+                $('#confirm-email').append(`<div class="alert alert-danger error-msg-times" role="alert">
+                                              {{ __('one_to_one.please select best time') }}
+                                            </div>`);
+            }else{
+                $('.error-msg-times').remove();
+            }
 
             for (index = 0; index < inputs.length; ++index) {
                 if (inputs[index].value == null || inputs[index].value == ""){
@@ -928,6 +998,24 @@ Students from other trajectories shall be able to .enroll in the second phase of
         $(document).on('change', 'form#msform input[required]', function (e) {
             if ($(this).val() != "" && $(this).val() != null){
                 $(this).css('border-color', 'green');
+            }
+        });
+
+        $(document).on('change', '#std-section', function (e) {
+            $('form#msform input[type=radio]').prop('checked', false);
+
+            if ($(this).val() == "1") {
+                $('#favorite_times_male').removeClass('d-none');
+                $('#favorite_times_male').addClass('d-block');
+                $('#favorite_times_female').removeClass('d-block');
+                $('#favorite_times_female').addClass('d-none');
+            }
+
+            if ($(this).val() == "2") {
+                $('#favorite_times_female').removeClass('d-none');
+                $('#favorite_times_female').addClass('d-block');
+                $('#favorite_times_male').removeClass('d-block');
+                $('#favorite_times_male').addClass('d-none');
             }
         });
 

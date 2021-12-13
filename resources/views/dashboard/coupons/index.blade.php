@@ -6,7 +6,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">جميع الأوقات المفضلة</h4>
+                    <h4 class="card-title">جميع كوبونات الخصم</h4>
                     <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                     <div class="heading-elements">
                         <ul class="list-inline mb-0">
@@ -29,23 +29,30 @@
                                     <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>العنوان</th>
+                                        <th>كود الكوبون</th>
+                                        <th>النوع</th>
+                                        <th>القيمة</th>
+                                        <th>الدورة</th>
+                                        <th>تعديل</th>
+                                        <th>حذف</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($favorite_times as $favorite_time)
+                                    @foreach($coupons as $coupon)
                                         <tr>
-                                            <th scope="row">{{ $favorite_time->id }}</th>
-                                            <td>{{ $favorite_time->title }}</td>
-                                            <td>{{ $favorite_time->section == 'male' ? 'بنين' : 'بنات' }}</td>
+                                            <th scope="row">{{ $coupon->id }}</th>
+                                            <td>{{ $coupon->code }}</td>
+                                            <td>{{ $coupon->type }}</td>
+                                            <td>{{ ($coupon->type == 'fixed') ? $coupon->value . ' $' : $coupon->value}}</td>
+                                            <td>{{ $coupon->course->name }}</td>
                                             <td>
-                                                <a href="{{ route('dashboard.favorite-times.edit', $favorite_time->id) }}" class="btn btn-warning">
+                                                <a href="{{ route('dashboard.coupons.edit', $coupon->id) }}" class="btn btn-warning">
                                                     تعديل
                                                     <i class="ft ft-edit"></i>
                                                 </a>
                                             </td>
                                             <td>
-                                                <form action="{{ route('dashboard.favorite-times.destroy', $favorite_time->id) }}" method="POST">
+                                                <form action="{{ route('dashboard.coupons.destroy', $coupon->id) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
 

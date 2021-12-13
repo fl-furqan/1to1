@@ -19,8 +19,8 @@ return [
     'Email' => 'Email *',
     'Confirm Email' => 'Confirm Email *',
     'terms and conditions' => 'I certify that the above statements are correct and that I have read all the terms and conditions and pledge to abide by that.',
-    'Payment via credit card' => 'We accept all credit cards  (Mada - VISA- Master Card - American express - others) <br> Total tuition + bank fees = $295 <span style="color: red;">this is a limited time offer</span>',
-    'HSBC Bank' => 'International Transfer (HSBC Bank) --> Total Tuition + Bank Fee = $310',
+    'Payment via credit card' => 'We accept all credit cards  (Mada - VISA- Master Card - American express - others) <br> Total tuition + bank fees = $900',
+    'HSBC Bank' => 'International Transfer (HSBC Bank) --> Total Tuition + Bank Fee = $900',
     'Registration method' => 'Registration method',
     'Bank name' => 'Bank name',
     'Name' => 'Name',
@@ -39,7 +39,15 @@ return [
     'The student ID is not in our records' => 'The student ID is not in our records',
     'The registration process has been completed successfully' => 'The registration process has been completed successfully',
     'Required' => 'Required *',
-    'Payment failed' => 'Payment failed, please try a different card or reach us support via help@furqangroup.com',
+    'Payment failed!' => 'Payment failed, please try a different card or reach us support via help@furqangroup.com',
     'Error' => 'Error',
     'Error 419' => 'Kindly make sure you are not using incognito mode to ensure processing the transaction successfully',
+
+    'Cant use this coupon' => 'Cant use this coupon!',
+    'Please enter your student number' => 'Please enter your student number!',
+    'discount total is' => 'discount total is ',
+    'and price after discount is' => 'and price after discount is ',
+    'Enter coupon' => 'Enter coupon',
+    'Apply' => 'Apply',
+
 ];

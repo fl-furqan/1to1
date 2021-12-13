@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\FilesHelper;
+use App\Models\Coupon;
+use App\Models\Course;
 use App\Models\Register;
 use App\Models\Student;
 use App\Models\Subscribe;
@@ -57,9 +59,9 @@ class RegisterController extends Controller
      * @param array $customer
      * @return string
      */
-    public function payment(string $token, array $customer)
+    public function payment(string $token, array $customer, $amount)
     {
-        $result = (new Checkout())->payment($token, $customer);
+        $result = (new Checkout())->payment($token, $customer, $amount);
 
         return $result;
     }
@@ -105,10 +107,25 @@ class RegisterController extends Controller
             return redirect()->route('semester.indexOneToOne');
         }
 
+        $course = Course::query()->where('code', 'one-to-one')->first();
+        $amount = $course->amount;
+
+        if (isset($request->hidden_apply_coupon) && !empty($request->hidden_apply_coupon)){
+            $coupon_code = $request->hidden_apply_coupon;
+            $coupon = Coupon::where('code', $coupon_code)->where('course_id', $course->id)->first();
+
+            if (@$coupon->is_valid){
+                $discount    = $coupon->getDiscount($course->amount);
+                $base_amount = $course->amount;
+                $amount = ($base_amount - $discount);
+                $coupon->use($student->id);
+            }
+        }
+
         if ($request->payment_method == 'checkout_gateway') {
 
             $customer = ['email' => $request->email, 'name' => $request->student_name];
-            $result  = $this->payment($request->token_pay, $customer);
+            $result  = $this->payment($request->token_pay, $customer, $amount);
 
             $subscribe = Subscribe::query()->create([
                 'student_id' => $student->id,
@@ -120,6 +137,9 @@ class RegisterController extends Controller
                 'payment_status' => Session::get('payment_status'),
                 'form_type' => 'one-to-one',
                 'response_code' => $result->response_code,
+                'coupon_id' => $coupon->id ?? null,
+                'discount_value' => $discount ?? 0.00,
+                'coupon_code' => $coupon->code ?? null,
             ]);
 
             Session::forget('payment_id');

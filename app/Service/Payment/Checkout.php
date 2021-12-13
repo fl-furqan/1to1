@@ -47,7 +47,7 @@ class Checkout
         $response = $client->request('POST', '/payment-links',
             [
                 'json' => [
-                    "amount" => 29500,
+                    "amount" => 90000,
                 ], 'headers' => [
                 'Authorization' => $this->secret
             ]
@@ -56,7 +56,7 @@ class Checkout
         return $data->status;
     }
 
-    public function payment(string $token = null, $customer = null)
+    public function payment(string $token, $customer, $amount)
     {
         $now = Carbon::now();
 
@@ -84,7 +84,7 @@ class Checkout
 //            '0044', '02073233888'
 //        ]);
         $payment->billing_descriptor = new BillingDescriptor('Dynamic desc charge', 'City charge');
-        $payment->amount = 29500;
+        $payment->amount = $amount;
         $payment->capture = true;
         $payment->reference = $reference_number;
         $payment->success_url = 'https://furqanshop.com/eservices_checkout/';

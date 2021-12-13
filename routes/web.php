@@ -3,6 +3,7 @@
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SemesterRegistrationController;
 use App\Http\Controllers\ImportController;
+use App\Http\Controllers\CouponController;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Route;
 
@@ -29,12 +30,15 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'l
 
     // import files to database
 //    Route::get('/importCountries', [ImportController::class, 'importCountries']);
-//    Route:get('/importStudents', [ImportController::class, 'importStudents']);
+//    Route::get('/importStudents', [ImportController::class, 'importStudents']);
+
+    // apply coupon
+    Route::get('/apply-coupon', [CouponController::class, 'applyCoupon'])->name('apply.coupon');
 
 });
 
  Route::get('/test', function (\App\Services\GoogleSheet $googleSheet){
-
+//    dd($googleSheet->readGoogleSheet()[1][0]);
  });
 
 Auth::routes();
