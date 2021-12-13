@@ -27,7 +27,6 @@ class CouponController extends Controller
         if (@$coupon->is_valid){
             $discount    = $coupon->getDiscount($course->amount)/100;
             $base_amount = $course->amount/100;
-
             return response()->json(['discount' => $discount, 'base_amount' => $base_amount, 'price_after_discount' => ($base_amount - $discount)], 200, [], JSON_UNESCAPED_UNICODE);
         }
 

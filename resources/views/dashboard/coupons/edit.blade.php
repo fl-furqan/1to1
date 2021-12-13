@@ -86,6 +86,16 @@
                     </div>
                 </div>
 
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="course_id">الدورة</label>
+                        <select name="course_id" id="course_id" class="form-control select2" required>
+                            @foreach($courses as $course)
+                                <option value="{{ $course->id }}" {{ $coupon->course_id == $course->id ? 'selected' : '' }}>{{ $course->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
 
             </div>
         </div>

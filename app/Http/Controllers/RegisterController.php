@@ -107,12 +107,13 @@ class RegisterController extends Controller
             return redirect()->route('semester.indexOneToOne');
         }
 
-        $course = Course::query()->where('code', 'one_to_one')->first();
+        $course = Course::query()->where('code', 'one-to-one')->first();
         $amount = $course->amount;
 
         if (isset($request->hidden_apply_coupon) && !empty($request->hidden_apply_coupon)){
             $coupon_code = $request->hidden_apply_coupon;
-            $coupon = Coupon::where('code', $coupon_code)->first();
+            $coupon = Coupon::where('code', $coupon_code)->where('course_id', $course->id)->first();
+
             if (@$coupon->is_valid){
                 $discount    = $coupon->getDiscount($course->amount);
                 $base_amount = $course->amount;

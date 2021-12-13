@@ -126,8 +126,9 @@ class CouponController extends Controller
     {
         $coupon = Coupon::findOrFail($id);
         $students = Student::query()->get();
+        $courses = Course::query()->get();
 
-        return view('dashboard.coupons.edit', ['coupon' => $coupon, 'users' => $students]);
+        return view('dashboard.coupons.edit', ['coupon' => $coupon, 'users' => $students, 'courses' => $courses]);
     }
 
     /**
