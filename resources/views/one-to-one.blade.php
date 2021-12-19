@@ -418,8 +418,8 @@
 
                                          <ul class="text-right">
                                             <li>9:00 صباحا - 10:00 مساء بتوقيت مكة المكرمة (GMT+3)</li>
-                                            <li>8:00 صباحا - 09:00 مساء بتوقيت المغرب العربي وفرنسا  (GMT+1)</li>
-                                            <li>2:00 صباحا - 03:00 مساء بتوقيت نيويورك ( GMT-5)</li>
+                                            <li>7:00 صباحا - 08:00 مساء بتوقيت المغرب العربي وفرنسا  (GMT+1)</li>
+                                            <li>1:00 صباحا - 02:00 مساء بتوقيت نيويورك ( GMT-5)</li>
                                         </ul>
 
                                         <span class="text-center d-block">مع تمنياتنا للجميع بالتوفيق والنجاح.</span>
@@ -498,8 +498,8 @@ Students from other trajectories shall be able to .enroll in the second phase of
 
                                         <ul>
                                             <li>09:00AM - 10:00PM Mecca time (GMT + 3)</li>
-                                            <li>08:00AM - 09:00PM Morocco and France time (GMT+1)</li>
-                                            <li>02:00AM - 03:00PM New York time (GMT-5)</li>
+                                            <li>07:00AM - 08:00PM Morocco and France time (GMT+1)</li>
+                                            <li>01:00AM - 02:00PM New York time (GMT-5)</li>
                                         </ul>
 
                                         <span class="w-100 text-center d-block" style="color: black; font-weight: bold;">
