@@ -570,6 +570,7 @@ Students from other trajectories shall be able to .enroll in the second phase of
                                 </div>
 
                                 <div id="favorite_times_male" class="d-none">
+                                    <label for="std-email-conf">{{ __('one_to_one.Choose your preferred schedule') }}</label>
                                     @foreach($favorite_times_male as $key => $favorite_time)
                                         <div class="form-group text-right">
                                             <input class="form-check-input input-time" type="radio" name="favorite_time" id="{{ $favorite_time->title . $key }}" value="{{ $favorite_time->title }}" required>
@@ -581,6 +582,7 @@ Students from other trajectories shall be able to .enroll in the second phase of
                                 </div>
 
                                 <div id="favorite_times_female" class="d-none">
+                                    <label for="std-email-conf">{{ __('one_to_one.Choose your preferred schedule') }}</label>
                                     @foreach($favorite_times_female as $key => $favorite_time)
                                         <div class="form-group text-right">
                                             <input class="form-check-input input-time" type="radio" name="favorite_time" id="{{ $favorite_time->title . $key }}" value="{{ $favorite_time->title }}" required>
