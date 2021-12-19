@@ -25,6 +25,8 @@ Route::group(['as' => 'dashboard.', 'namespace' => '\App\Http\Controllers\Auth',
 
 Route::group(['middleware' => [ 'web' => 'auth:admin' ], 'as' => 'dashboard.'], function()
 {
+
+    // home dashboard
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 
     // logout

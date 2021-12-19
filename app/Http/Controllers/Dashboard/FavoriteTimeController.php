@@ -134,7 +134,7 @@ class FavoriteTimeController extends Controller
     public function destroy($id) {
         FavoriteTime::find($id)->delete();
         session()->flash('success', trans('تم الحذف بنجاح'));
-        return redirect(route('favorite-times.index'));
+        return redirect(route('dashboard.favorite-times.index'));
     }
 
 }

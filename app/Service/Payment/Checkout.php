@@ -87,12 +87,12 @@ class Checkout
         $payment->amount = $amount;
         $payment->capture = true;
         $payment->reference = $reference_number;
-        $payment->success_url = 'https://furqanshop.com/eservices_checkout/';
-        $payment->failure_url = 'https://furqanshop.com/eservices_checkout/';
+        $payment->success_url = 'https://furqanshop.com/eservices_checkout_one_to_one/';
+        $payment->failure_url = 'https://furqanshop.com/eservices_checkout_one_to_one/';
 
-//        $threeDs = new ThreeDs(true);
-//        $threeDs->attempt_n3d = true;
-//        $payment->threeDs = $threeDs;
+        $threeDs = new ThreeDs(true);
+        $threeDs->attempt_n3d = true;
+        $payment->threeDs = $threeDs;
 
         $payment->risk = new Risk(false);
 //        $payment->setIdempotencyKey('123');
