@@ -544,6 +544,8 @@ Students from other trajectories shall be able to .enroll in the second phase of
                                 </div>
 
                                 <div class="form-group text-right" id="std-name-section">
+                                    <div class="alert alert-danger d-none" role="alert">
+                                    </div>
                                     <label for="std-name" class="text-right">{{ __('resubscribe.Name') }} *</label>
                                     <input type="text" min="0" name="student_name" class="form-control" id="std-name" placeholder="..." required readonly>
                                 </div>
@@ -892,12 +894,15 @@ Students from other trajectories shall be able to .enroll in the second phase of
                 success: function (data) {
                     $('form #std-name').val(data.name);
                     $('form #std-name').css('border-color', 'green');
+                    $('form #std-name-section .alert').addClass('d-none');
                 },
                 error: function (data){
                     $('form #std-name').val('');
                     $('form #std-name').attr("placeholder", data.responseJSON.msg);
                     $('form #std-name').attr("title", data.responseJSON.msg);
                     $('form #std-name').css('border-color', 'red');
+                    $('form #std-name-section .alert').html(data.responseJSON.msg);
+                    $('form #std-name-section .alert').removeClass('d-none');
                 }
             });
         });
