@@ -418,8 +418,8 @@
 
                                          <ul class="text-right">
                                             <li>9:00 صباحا - 10:00 مساء بتوقيت مكة المكرمة (GMT+3)</li>
-                                            <li>8:00 صباحا - 09:00 مساء بتوقيت المغرب العربي وفرنسا  (GMT+1)</li>
-                                            <li>2:00 صباحا - 03:00 مساء بتوقيت نيويورك ( GMT-5)</li>
+                                            <li>7:00 صباحا - 08:00 مساء بتوقيت المغرب العربي وفرنسا  (GMT+1)</li>
+                                            <li>1:00 صباحا - 02:00 مساء بتوقيت نيويورك ( GMT-5)</li>
                                         </ul>
 
                                         <span class="text-center d-block">مع تمنياتنا للجميع بالتوفيق والنجاح.</span>
@@ -498,8 +498,8 @@ Students from other trajectories shall be able to .enroll in the second phase of
 
                                         <ul>
                                             <li>09:00AM - 10:00PM Mecca time (GMT + 3)</li>
-                                            <li>08:00AM - 09:00PM Morocco and France time (GMT+1)</li>
-                                            <li>02:00AM - 03:00PM New York time (GMT-5)</li>
+                                            <li>07:00AM - 08:00PM Morocco and France time (GMT+1)</li>
+                                            <li>01:00AM - 02:00PM New York time (GMT-5)</li>
                                         </ul>
 
                                         <span class="w-100 text-center d-block" style="color: black; font-weight: bold;">
@@ -544,6 +544,8 @@ Students from other trajectories shall be able to .enroll in the second phase of
                                 </div>
 
                                 <div class="form-group text-right" id="std-name-section">
+                                    <div class="alert alert-danger d-none" role="alert">
+                                    </div>
                                     <label for="std-name" class="text-right">{{ __('resubscribe.Name') }} *</label>
                                     <input type="text" min="0" name="student_name" class="form-control" id="std-name" placeholder="..." required readonly>
                                 </div>
@@ -568,6 +570,7 @@ Students from other trajectories shall be able to .enroll in the second phase of
                                 </div>
 
                                 <div id="favorite_times_male" class="d-none">
+                                    <label for="std-email-conf">{{ __('one_to_one.Choose your preferred schedule') }}</label>
                                     @foreach($favorite_times_male as $key => $favorite_time)
                                         <div class="form-group text-right">
                                             <input class="form-check-input input-time" type="radio" name="favorite_time" id="{{ $favorite_time->title . $key }}" value="{{ $favorite_time->title }}" required>
@@ -579,6 +582,7 @@ Students from other trajectories shall be able to .enroll in the second phase of
                                 </div>
 
                                 <div id="favorite_times_female" class="d-none">
+                                    <label for="std-email-conf">{{ __('one_to_one.Choose your preferred schedule') }}</label>
                                     @foreach($favorite_times_female as $key => $favorite_time)
                                         <div class="form-group text-right">
                                             <input class="form-check-input input-time" type="radio" name="favorite_time" id="{{ $favorite_time->title . $key }}" value="{{ $favorite_time->title }}" required>
@@ -771,7 +775,7 @@ Students from other trajectories shall be able to .enroll in the second phase of
 
     <!-- add frames script -->
 <script src="https://cdn.checkout.com/js/framesv2.min.js"></script>
-<script src="{{ asset('app.js') }}?v=63.1"></script>
+<script src="{{ asset('app.js') }}?v=63.61"></script>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
@@ -892,12 +896,15 @@ Students from other trajectories shall be able to .enroll in the second phase of
                 success: function (data) {
                     $('form #std-name').val(data.name);
                     $('form #std-name').css('border-color', 'green');
+                    $('form #std-name-section .alert').addClass('d-none');
                 },
                 error: function (data){
                     $('form #std-name').val('');
                     $('form #std-name').attr("placeholder", data.responseJSON.msg);
                     $('form #std-name').attr("title", data.responseJSON.msg);
                     $('form #std-name').css('border-color', 'red');
+                    $('form #std-name-section .alert').html(data.responseJSON.msg);
+                    $('form #std-name-section .alert').removeClass('d-none');
                 }
             });
         });

@@ -47,8 +47,8 @@ return [
     'Cant use this coupon' => 'لا يمكن استخدام هذا الكوبون!',
     'Please enter your student number' => 'يرجى التأكد من ادخال بيانات الطالب ورقمه بالشكل الصحيح',
     'discount total is' => 'قيمة الخصم هي ',
-    'and price after discount is' => 'والسعر بعد الخصم هو ',
-    'Enter coupon' => 'ادخل الكوبون',
+    'and price after discount is' => ' والسعر بعد الخصم هو ',
+    'Enter coupon' => 'في حالة كان لديك كوبون خصم فضلا أدخله من هنا',
     'Apply' => 'تطبيق',
 
 ];

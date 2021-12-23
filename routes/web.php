@@ -41,6 +41,6 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'l
 //    dd($googleSheet->readGoogleSheet()[1][0]);
  });
 
-Auth::routes();
+//Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

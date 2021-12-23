@@ -107,6 +107,7 @@ class RegisterController extends Controller
             return redirect()->route('semester.indexOneToOne');
         }
 
+        Session::put('student_id', $student->id);
         $course = Course::query()->where('code', 'one-to-one')->first();
         $amount = $course->amount;
 
@@ -136,7 +137,7 @@ class RegisterController extends Controller
                 'reference_number' => Session::get('reference_number'),
                 'payment_status' => Session::get('payment_status'),
                 'form_type' => 'one-to-one',
-                'response_code' => $result->response_code,
+                'response_code' => $result->response_code ?? '-',
                 'coupon_id' => $coupon->id ?? null,
                 'discount_value' => $discount ?? 0.00,
                 'coupon_code' => $coupon->code ?? null,

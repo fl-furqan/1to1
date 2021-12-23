@@ -52,7 +52,7 @@ class SemesterRegistrationController extends Controller
 
                     $result = $subscribe->update([
                         'payment_status' => $data->status,
-                        'response_code'  => $data->actions['response_code'],
+                        'response_code'  => $data->actions[0]->response_code ?? '-',
                     ]);
 
                     if ($data->approved){

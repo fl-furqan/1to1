@@ -46,8 +46,8 @@ return [
     'Cant use this coupon' => 'Cant use this coupon!',
     'Please enter your student number' => 'Please enter your student number!',
     'discount total is' => 'discount total is ',
-    'and price after discount is' => 'and price after discount is ',
-    'Enter coupon' => 'Enter coupon',
+    'and price after discount is' => ' and price after discount is ',
+    'Enter coupon' => 'In  case if you have a coupon please insert it below',
     'Apply' => 'Apply',
 
 ];
