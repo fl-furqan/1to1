@@ -26,7 +26,7 @@
 <div style="border: 2px solid black; width: 70%; margin: 0 auto;">
     <div style="text-align: center;font-family: arial, sans-serif">
         <img src="{{ public_path('dashboard\assets\img\logo2.png') }}" alt="">
-        <h1> تسجيل للفصل الثاني 1442 - منتظمين </h1>
+        <h1> تسجيل للفصل الثاني 1443 - فردي </h1>
     </div>
 
     <div>
@@ -65,7 +65,7 @@
                     حوالة بنكية
                 </td>
                 <td style="border: 1px solid gray;width: 80px; font-size: 16px; text-align: center;font-family: arial, sans-serif">
-                    {{url(Storage::url($details->money_transfer_image_path)) }}
+                    <a href="{{url(Storage::url($details->money_transfer_image_path)) }}">صورة الحوالة</a>
                 </td>
             </tr>
 

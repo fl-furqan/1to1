@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Country;
+use App\Models\Course;
 use App\Models\FavoriteTime;
 use App\Models\Student;
 use App\Models\Subscribe;
@@ -76,7 +77,9 @@ class SemesterRegistrationController extends Controller
         $countries = Country::query()->where('lang', '=', App::getLocale())->get();
         $favorite_times_male = FavoriteTime::query()->where('section',  '=', 'male')->get();
         $favorite_times_female = FavoriteTime::query()->where('section',  '=', 'female')->get();
-        return view('one-to-one', ['countries' => $countries, 'favorite_times_male' => $favorite_times_male , 'favorite_times_female' => $favorite_times_female]);
+        $course = Course::query()->where('code',  '=', 'one_to_one')->first();
+
+        return view('one-to-one', ['countries' => $countries, 'favorite_times_male' => $favorite_times_male , 'favorite_times_female' => $favorite_times_female, 'course' => $course]);
     }
 
     public function getStudentInfo()

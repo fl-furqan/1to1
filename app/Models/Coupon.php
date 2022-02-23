@@ -9,10 +9,12 @@ use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use \Illuminate\Support\Facades\Session;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Coupon extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     protected $guarded = [];
     protected $appends = ['is_valid'];
@@ -91,6 +93,33 @@ class Coupon extends Model
     public function course()
     {
         return $this->belongsTo(Course::class, 'course_id');
+    }
+
+    public function adminCreatedBy()
+    {
+        return $this->belongsTo(Admin::class, 'created_by');
+    }
+
+    public function adminUpdatedBy()
+    {
+        return $this->belongsTo(Admin::class, 'updated_by');
+    }
+
+    protected static function booted()
+    {
+        static::creating(function (Coupon $coupon) {
+            $coupon->created_by = auth('admin')->user()->id;
+        });
+
+        static::updating(function (Coupon $coupon) {
+            $coupon->updated_by = auth('admin')->user()->id;
+        });
+
+        static::deleting(function (Coupon $coupon) {
+            $coupon->deleted_by = auth('admin')->user()->id;
+            $coupon->save();
+        });
+
     }
 
 }
