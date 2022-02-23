@@ -47,18 +47,18 @@ class Subscribe extends Model
                     $subscribe->student->name ?? '-', $subscribe->country->name, $subscribe->email,
                     $image_path ?? '-', $subscribe->bank_name ?? '-', $subscribe->account_owner ?? '-',
                     $subscribe->transfer_date ?? '-', $subscribe->bank_reference_number ?? '-', $subscribe->payment_method ?? '-',
-                    $subscribe->payment_id ?? '-', $subscribe->payment_status ?? '-', $subscribe->response_code ?? '-', $subscribe->coupon_code ?? '-', ($subscribe->discount_value/100) ?? '0.0'
+                    $subscribe->payment_id ?? '-', $subscribe->payment_status ?? '-', $subscribe->response_code ?? '-', $subscribe->coupon_code ?? '-', ($subscribe->discount_value/100) ?? '0.0', $subscribe->favorite_time ?? '-'
                 ],
             ];
 
             $googleSheet->saveDataToSheet($values);
 
             if ($subscribe->payment_method == 'checkout_gateway' && is_numeric($subscribe->response_code) && in_array($subscribe->payment_status, ['Captured', 'Authorized']) ){
-                Notification::route('mail', ['fees@furqancenter.com'])->notify(new SubscribeNotification($subscribe));
+                Notification::route('mail', [$subscribe->email])->notify(new SubscribeNotification($subscribe));
             }
 
             if ($subscribe->payment_method == 'hsbc'){
-                Notification::route('mail', ['fees@furqancenter.com'])->notify(new SubscribeNotification($subscribe));
+                Notification::route('mail', [$subscribe->email])->notify(new SubscribeNotification($subscribe));
             }
 
         });
@@ -82,17 +82,16 @@ class Subscribe extends Model
                         $subscribe->student->name ?? '-', $subscribe->country->name, $subscribe->email,
                         $image_path, $subscribe->bank_name ?? '-', $subscribe->account_owner ?? '-',
                         $subscribe->transfer_date ?? '-', $subscribe->bank_reference_number ?? '-', $subscribe->payment_method ?? '-',
-                        $subscribe->payment_id ?? '-', $subscribe->payment_status ?? '-', $subscribe->response_code ?? '-', $subscribe->coupon_code ?? '-', ($subscribe->discount_value/100) ?? '0.0'
+                        $subscribe->payment_id ?? '-', $subscribe->payment_status ?? '-', $subscribe->response_code ?? '-', $subscribe->coupon_code ?? '-', ($subscribe->discount_value/100) ?? '0.0', $subscribe->favorite_time ?? '-'
                     ],
                 ];
 
                 $googleSheet->saveDataToSheet($values);
 
                 if (is_numeric($subscribe->response_code) && in_array($subscribe->payment_status, ['Captured', 'Authorized']) ){
-                    Notification::route('mail', ['fees@furqancenter.com'])->notify(new SubscribeNotification($subscribe));
+                    Notification::route('mail', [$subscribe->email])->notify(new SubscribeNotification($subscribe));
                 }
             }
         });
-
     }
 }

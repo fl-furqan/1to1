@@ -7,9 +7,11 @@ use App\Models\Course;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use \Illuminate\Support\Facades\Session;
+use Spatie\Permission\Models\Role;
 
 class CouponController extends Controller
 {
+
     public function applyCoupon()
     {
         $code = \request()->query('code');

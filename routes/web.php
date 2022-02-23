@@ -30,17 +30,24 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'l
 
     // import files to database
 //    Route::get('/importCountries', [ImportController::class, 'importCountries']);
-//    Route::get('/importStudents', [ImportController::class, 'importStudents']);
 
     // apply coupon
     Route::get('/apply-coupon', [CouponController::class, 'applyCoupon'])->name('apply.coupon');
 
 });
 
- Route::get('/test', function (\App\Services\GoogleSheet $googleSheet){
-//    dd($googleSheet->readGoogleSheet()[1][0]);
- });
+Route::get('/clear-cache', function (\App\Services\GoogleSheet $googleSheet){
+    \Artisan::call('optimize:clear');
+    echo "Done";
+});
 
-//Auth::routes();
+Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('test', function (){
+    $role = \Spatie\Permission\Models\Role::create(['name' => 'writer']);
+    $permission = \Spatie\Permission\Models\Permission::create(['name' => 'edit articles']);
+    $permission->assignRole($role);
+
+});

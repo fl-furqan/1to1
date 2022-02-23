@@ -76,11 +76,13 @@ class RegisterController extends Controller
             'student_name'   => 'required|string',
             'residence_country' => 'required|exists:countries,id',
             'email' => 'required|email',
+            'favorite_time' => 'required',
         ]);
 
         if ($request->payment_method == 'hsbc'){
             $request->validate([
-                'money_transfer_image_path' => 'required|image',
+                'money_transfer_image_path' => 'required',
+//                'money_transfer_image_path' => 'required|mimes:jpeg,jpg,bmp,gif,svg,webp,png,pdf,doc,docx',
                 'bank_name'     => 'required|string',
                 'account_owner' => 'required|string',
                 'transfer_date' => 'required|date',
@@ -108,7 +110,7 @@ class RegisterController extends Controller
         }
 
         Session::put('student_id', $student->id);
-        $course = Course::query()->where('code', 'one-to-one')->first();
+        $course = Course::query()->where('code', 'one_to_one')->first();
         $amount = $course->amount;
 
         if (isset($request->hidden_apply_coupon) && !empty($request->hidden_apply_coupon)){
@@ -136,7 +138,8 @@ class RegisterController extends Controller
                 'payment_id' => Session::get('payment_id'),
                 'reference_number' => Session::get('reference_number'),
                 'payment_status' => Session::get('payment_status'),
-                'form_type' => 'one-to-one',
+                'favorite_time' => $request->favorite_time,
+                'form_type' => 'one_to_one',
                 'response_code' => $result->response_code ?? '-',
                 'coupon_id' => $coupon->id ?? null,
                 'discount_value' => $discount ?? 0.00,
@@ -170,7 +173,8 @@ class RegisterController extends Controller
                 'account_owner' => $request->account_owner,
                 'transfer_date' => $request->transfer_date,
                 'bank_reference_number' => $request->bank_reference_number,
-                'form_type' => 'one-to-one',
+                'favorite_time' => $request->favorite_time,
+                'form_type' => 'one_to_one',
             ]);
         }
 

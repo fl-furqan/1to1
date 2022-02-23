@@ -13,6 +13,14 @@ use Illuminate\Support\Facades\DB;
 
 class CouponController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('permission:عرض-الكوبونات', ['only' => ['index']]);
+        $this->middleware('permission:اضافة-الكوبونات', ['only' => ['create', 'store']]);
+        $this->middleware('permission:تعديل-الكوبونات', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:حذف-الكوبونات', ['only' => ['destroy']]);
+    }
+
     /**
      * Display a listing of the resource.
      *

@@ -25,6 +25,10 @@
 
                             <div class="box-body">
 
+                                @can('اضافة-الكوبونات')
+                                    <a class="btn btn-success mb-2" href="{{ route('dashboard.coupons.create') }}"> إنشاء كوبون جديد</a>
+                                @endcan
+
                                 <table class="table">
                                     <thead>
                                     <tr>

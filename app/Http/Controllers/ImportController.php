@@ -14,12 +14,11 @@ class ImportController extends Controller
         ini_set('memory_limit', '60m');
     }
 
-    public function importStudents()
+    public function importStudents(Request $request)
     {
-//        Excel::import(new StudentImport(), 'male.xlsx');
-        Excel::import(new StudentImport(), 'female.xlsx');
+        Excel::import(new StudentImport(), $request->file_path);
 
-        dd('Import Done');
+        return back()->withSuccess('تم تحديث بيانات الطلاب بنجاح');
     }
 
     public function importCountries()
