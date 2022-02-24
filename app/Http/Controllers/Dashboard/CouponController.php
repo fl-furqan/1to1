@@ -28,7 +28,7 @@ class CouponController extends Controller
      */
     public function index()
     {
-        $coupons = Coupon::query()->get();
+        $coupons = Coupon::query()->orderBy('id', 'DESC')->get();
         return view('dashboard.coupons.index', ['coupons' => $coupons]);
     }
 
@@ -39,7 +39,8 @@ class CouponController extends Controller
      */
     public function create()
     {
-        $students = Student::query()->get();
+//        $students = Student::query()->select(['id', 'name'])->get();
+        $students = DB::table('students')->select(['id', 'name'])->get();
         $courses = Course::query()->get();
 
         return view("dashboard.coupons.create", ['users' => $students, 'courses' => $courses]);

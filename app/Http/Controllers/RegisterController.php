@@ -159,7 +159,7 @@ class RegisterController extends Controller
                 }else{
                     session()->flash('error', __('resubscribe.Payment failed!'));
                 }
-                return redirect()->route('semester.indexOneToOne');
+                return redirect()->route('semester.thankYouPage');
             }
 
         }else{
@@ -176,10 +176,11 @@ class RegisterController extends Controller
                 'favorite_time' => $request->favorite_time,
                 'form_type' => 'one_to_one',
             ]);
+//            dd($subscribe);
         }
 
         session()->flash('success', __('resubscribe.The registration process has been completed successfully'));
-        return redirect()->route('semester.indexOneToOne');
+        return redirect()->route('semester.thankYouPage');
     }
 
     /**

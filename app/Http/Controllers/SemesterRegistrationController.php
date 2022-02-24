@@ -32,6 +32,16 @@ class SemesterRegistrationController extends Controller
 
     public function indexOneToOne()
     {
+        $countries = Country::query()->where('lang', '=', App::getLocale())->get();
+        $favorite_times_male = FavoriteTime::query()->where('section',  '=', 'male')->get();
+        $favorite_times_female = FavoriteTime::query()->where('section',  '=', 'female')->get();
+        $course = Course::query()->where('code',  '=', 'one_to_one')->first();
+
+        return view('one-to-one', ['countries' => $countries, 'favorite_times_male' => $favorite_times_male , 'favorite_times_female' => $favorite_times_female, 'course' => $course]);
+    }
+
+    public function thankYouPage()
+    {
         if(request()->query('cko-session-id')){
             $client = new Client(['base_uri' => $this->payment_link]);
 
@@ -65,12 +75,9 @@ class SemesterRegistrationController extends Controller
                 }else{
                     session()->flash('error', __('resubscribe.Payment failed'));
                 }
-
-                return redirect()->route('semester.indexOneToOne');
             }catch (\GuzzleHttp\Exception\ClientException $e) {
 //                $response = $e->getResponse();
                 session()->flash('error', __('resubscribe.Payment failed'));
-                return redirect()->route('semester.indexOneToOne');
             }
         }
 
@@ -79,7 +86,11 @@ class SemesterRegistrationController extends Controller
         $favorite_times_female = FavoriteTime::query()->where('section',  '=', 'female')->get();
         $course = Course::query()->where('code',  '=', 'one_to_one')->first();
 
-        return view('one-to-one', ['countries' => $countries, 'favorite_times_male' => $favorite_times_male , 'favorite_times_female' => $favorite_times_female, 'course' => $course]);
+        if (! (session('error') || session('success')) ) {
+            return redirect()->route('semester.indexOneToOne');
+        }
+
+        return view('thank-you', ['countries' => $countries, 'favorite_times_male' => $favorite_times_male , 'favorite_times_female' => $favorite_times_female, 'course' => $course]);
     }
 
     public function getStudentInfo()

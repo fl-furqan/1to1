@@ -1,5 +1,10 @@
 @extends('dashboard.layouts.master')
 
+<style>
+    #specific_users + .select2.select2-container {
+        width: 100% !important;
+    }
+</style>
 @section('content')
 
     @include('dashboard.partials.errors')
@@ -68,9 +73,9 @@
                 </div>
 
                 <div class="col-md-4">
-                    <div class="form-group">
+                    <div class="form-group" id="specific_users_group">
                         <label for="specific_users">تخصيص طلاب</label>
-                        <select name="specific_users[]" id="specific_users" class="form-control select2" multiple>
+                        <select name="specific_users[]" id="specific_users" class="form-control" multiple="multiple">
                             @foreach($users as $user)
                                 <option value="{{ $user->id }}">{{ $user->name }}</option>
                             @endforeach
