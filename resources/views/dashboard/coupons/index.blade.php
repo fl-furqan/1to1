@@ -38,7 +38,8 @@
                                         <th>القيمة</th>
                                         <th>الدورة</th>
                                         <th>تعديل</th>
-                                        <th>حذف</th>
+                                        <th>اضيف بواسطة</th>
+                                        <th>اخر تحديث</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -56,16 +57,24 @@
                                                 </a>
                                             </td>
                                             <td>
-                                                <form action="{{ route('dashboard.coupons.destroy', $coupon->id) }}" method="POST">
-                                                    @csrf
-                                                    @method('DELETE')
+                                                <label class="badge badge-success">{{ @$coupon->adminCreatedBy->name }}</label>
+                                                <br>
+                                                {{ @$coupon->created_at->format('Y-d-m h:m') }}
+                                                {{--                                                <form action="{{ route('dashboard.coupons.destroy', $coupon->id) }}" method="POST">--}}
+{{--                                                    @csrf--}}
+{{--                                                    @method('DELETE')--}}
 
-                                                    <button type="submit" class="btn btn-danger">
-                                                        <i class="la la-trash"></i>
-                                                        حذف
-                                                    </button>
+{{--                                                    <button type="submit" class="btn btn-danger">--}}
+{{--                                                        <i class="la la-trash"></i>--}}
+{{--                                                        حذف--}}
+{{--                                                    </button>--}}
 
-                                                </form>
+{{--                                                </form>--}}
+                                            </td>
+                                            <td>
+                                                <label class="badge badge-danger">{{ @$coupon->adminUpdatedBy->name }}</label>
+                                                <br>
+                                                {{ @$coupon->adminUpdatedBy->name ? $coupon->updated_at->format('Y-d-m h:m') : '' }}
                                             </td>
                                         </tr>
                                     @endforeach

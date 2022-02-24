@@ -34,6 +34,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'l
     // apply coupon
     Route::get('/apply-coupon', [CouponController::class, 'applyCoupon'])->name('apply.coupon');
 
+    Route::get('/thank-you', [SemesterRegistrationController::class, 'thankYouPage'])->name('semester.thankYouPage');
 });
 
 Route::get('/clear-cache', function (\App\Services\GoogleSheet $googleSheet){

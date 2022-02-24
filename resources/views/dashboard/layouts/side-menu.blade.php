@@ -90,6 +90,7 @@
                 </li>
             @endcan
 
+            @can('عرض-الادوار')
                 <li class="nav-item">
                     <a href="{{ route('dashboard.roles.index') }}" title="عرض جميع الادوار">
                         <i class="ft ft-lock"></i>
@@ -104,7 +105,7 @@
                         </li>
                     </ul>
                 </li>
-
+            @endcan
 
             <li class="nav-item">
                 <a href="{{ route('dashboard.import.students.show') }}">
