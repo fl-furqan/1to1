@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Spatie\Permission\Models\Role;
 use App\Models\Admin;
 use Illuminate\Support\Facades\DB;
@@ -73,13 +74,13 @@ class AdminController extends Controller
             'email' => 'required|email|unique:admins,email,'.$id,
             'password' => 'same:confirm-password',
             'roles' => 'required'
-            ]);
+        ]);
 
         $input = $request->all();
         if(!empty($input['password'])){
             $input['password'] = Hash::make($input['password']);
         }else{
-            $input = array_except($input,array('password'));
+            $input = Arr::except($input, ['password']);
         }
 
         $admin = Admin::find($id);

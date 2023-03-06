@@ -66,4 +66,9 @@ Route::group(['middleware' => [ 'web' => 'auth:admin' ], 'as' => 'dashboard.'], 
 
     Route::resource('roles', RoleController::class);
     Route::resource('admins', \App\Http\Controllers\Dashboard\AdminController::class);
+
+    Route::get('/importCoupons', [ImportExportController::class, 'importCoupons'])->name('import.coupons.show');
+
+    Route::get('/students-names', [CouponController::class, 'getStudentsNames'])->name('students.names');
+
 });

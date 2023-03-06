@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Imports\CouponImport;
 use App\Imports\StudentImport;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
@@ -13,6 +14,14 @@ class ImportExportController extends Controller
     public function __construct(){
         ini_set('max_execution_time', 600);
         ini_set('memory_limit', '60m');
+    }
+
+    public function importCoupons()
+    {
+        Excel::import(new CouponImport(), 'coupons.xlsx');
+
+        dd('Done');
+//        return back()->withSuccess('تم تحديث بيانات الطلاب بنجاح');
     }
 
     public function importStudents(Request $request)

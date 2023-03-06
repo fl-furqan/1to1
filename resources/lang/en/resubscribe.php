@@ -1,14 +1,14 @@
 <?php
 
 return [
-  'Second semester 2022' => 'Second semester 2022',
-  'Information and notes' => 'Information and notes',
-  'Register' => 'Register',
-  'Payment and termination' => 'Payment and termination',
-  'Next' => 'Next',
-  'Male' => 'Male',
-  'Female' => 'Female',
-  'Send' => 'Send',
+    'Second semester 2022' => 'Second semester 2022',
+    'Information and notes' => 'Information and notes',
+    'Register' => 'Register',
+    'Payment and termination' => 'Payment and termination',
+    'Next' => 'Next',
+    'Male' => 'Male',
+    'Female' => 'Female',
+    'Send' => 'Send',
     'General information' => 'General information',
     'Previous' => 'Previous',
     'Section' => 'Department',

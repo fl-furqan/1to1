@@ -17,11 +17,7 @@ class StudentImport implements ToModel, WithHeadingRow, WithChunkReading, WithBa
     {
         $this->section = $section;
     }
-    /**
-    * @param array $row
-    *
-    * @return \Illuminate\Database\Eloquent\Model|null
-    */
+
     public function model(array $row)
     {
 
@@ -29,17 +25,19 @@ class StudentImport implements ToModel, WithHeadingRow, WithChunkReading, WithBa
         $name    = trim($row['alasm']);
         $status  = trim($row['odaa_altalb']);
         $path    = trim($row['almsar']);
+        $client_zoho_id   = trim($row['rkm_zoho']);
 
         if(!is_null($serial_number) && !is_null($name) && !is_null($status) && !is_null($path)){
 
             Student::query()->updateOrCreate([
                 'serial_number' => $serial_number,
                 'section' => $this->section,
-                ],
-                [
+            ],
+            [
                 'name'    => $name,
                 'status'  => $status == 'منتظم' ? '1' : '0',
                 'path'    => $path,
+                'client_zoho_id' => $client_zoho_id,
             ]);
 
         }

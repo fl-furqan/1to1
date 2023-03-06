@@ -72,7 +72,6 @@ class Coupon extends Model
             ['student_id' => $student_id, 'coupon_id' => $this->id]
         );
 
-
     }
 
     public function getDiscount($subtotal)
@@ -112,7 +111,9 @@ class Coupon extends Model
         });
 
         static::updating(function (Coupon $coupon) {
-            $coupon->updated_by = auth('admin')->user()->id;
+            if(Auth::guard('admin')->check()){
+                $coupon->updated_by = auth('admin')->user()->id;
+            }
         });
 
         static::deleting(function (Coupon $coupon) {

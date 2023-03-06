@@ -28,10 +28,30 @@ class CouponController extends Controller
      */
     public function index()
     {
-        $coupons = Coupon::query()->orderBy('id', 'DESC')->get();
+        $coupons = Coupon::query()->orderBy('id', 'DESC')->paginate(10);
         return view('dashboard.coupons.index', ['coupons' => $coupons]);
     }
 
+    public function getStudentsNames()
+    {
+        $search = request()->q;
+
+        if($search == ''){
+            $students = Student::orderby('name','asc')->select('id', 'name')->limit(5)->get();
+        }else{
+            $students = Student::orderby('name','asc')->select('id', 'name')->where('name', 'like', '%' . $search . '%')->limit(10)->get();
+        }
+
+        $response = [];
+        foreach($students as $student){
+            $response[] = [
+                "id" => $student->id,
+                "text" => $student->name
+            ];
+        }
+
+        return response()->json($response);
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -54,6 +74,7 @@ class CouponController extends Controller
      */
     public function store(Request $request)
     {
+
         $rule = [
             'code' => 'required|string|unique:coupons,code',
             'type' => 'required|string',
